@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DishRepository extends JpaRepository<Dish, String> {
-    @Query("from Dish d where d.name not in " +
+public interface DishRepository extends JpaRepository<Dish, Integer> {
+    @Query("from Dish d where d.id not in " +
             "(select c.dish from Content c, Ingredient i where " +
-            "i.name = c.ingredient and c.amount > i.amount)")
+            "i.id = c.ingredient and c.amount > i.amount)")
     List<Dish> getDishes();
 }

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IngredientRepository extends JpaRepository<Ingredient, String> {
-    List<Ingredient> findByNameIn(List<String> ingredients);
+public interface IngredientRepository extends JpaRepository<Ingredient, Integer> {
+    List<Ingredient> findByIdIn(List<Long> ingredients);
 }

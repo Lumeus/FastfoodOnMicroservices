@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ContentRepository extends JpaRepository<Content, Integer> {
-    List<Content> findByDishIn(List<String> dishes);
-    List<Content> findByDish(String dish);
+public interface ContentRepository extends JpaRepository<Content, Long> {
+    List<Content> findByDishIn(List<Long> dishes);
+    List<Content> findByDish(long dish);
 }

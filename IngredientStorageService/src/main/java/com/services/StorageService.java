@@ -25,20 +25,20 @@ public class StorageService {
 
 //    Обновление остатка ингредиентов на складе
 //    всвязи с поступлением новой партии или списанием старой
+    @Transactional
     public void addIngredients(List<Ingredient> ingredients){
 //      Получение данных о соответствующих ингредиентах
-        List<Ingredient> a = ingredientRepository.findByNameIn(ingredients.stream()
-                .map(Ingredient::getName)
+        List<Ingredient> a = ingredientRepository.findByIdIn(ingredients.stream()
+                .map(Ingredient::getId)
                 .collect(Collectors.toList())
+
         );
 //      Редактирование данных
-        a.forEach(e -> {
-            ingredients.forEach(o -> {
-                if (e.getName().equals(o.getName())){
-                    e.setAmount(e.getAmount() + o.getAmount());
-                }
-            });
-        });
+        a.forEach(e -> ingredients.forEach(o -> {
+            if (e.getName().equals(o.getName())){
+                e.setAmount(e.getAmount() + o.getAmount());
+            }
+        }));
 //      Сохранение данных
         ingredientRepository.save(a);
     }
@@ -52,27 +52,27 @@ public class StorageService {
 //    также проверяется возможность выполнения заказа
 //    возвращается результат этой проверки
 //    если проверка не пройдена, заказ выполнен не будет и изменений в базе не последует
-//    @Transactional
+    @Transactional
     public boolean takeDishes(List<Dish> dishes) {
 //      Получение данных о содержании ингредиентов в блюдах
         List<Content> contents = new ArrayList<Content>();
-        dishes.forEach(e -> contents.addAll(contentRepository.findByDish(e.getName())));
+        dishes.forEach(e -> contents.addAll(contentRepository.findByDish(e.getId())));
 //      Получение данных об ингредиентах, содержащихся в блюдах
-        List<Ingredient> ingredients = ingredientRepository.findByNameIn(contents.stream()
+        List<Ingredient> ingredients = ingredientRepository.findByIdIn(contents.stream()
                 .map(Content::getIngredient)
                 .collect(Collectors.toList())
         );
 //      Редактирование данных об ингредиентах
         contents.forEach(e -> ingredients.forEach(o -> {
-            if (o.getName().equals(e.getIngredient())) {
+            if (o.getId() == e.getIngredient()) {
                 o.setAmount(o.getAmount() - e.getAmount());
             }
         }));
 //      Проверка на корректность внесенных изменений (хватает ли ингредиентов на данный заказ)
         if (ingredients.stream()
-                .map(e -> e.getAmount() >= 0)
-                .collect(Collectors.toList())
-                .contains(false)
+                .map(e -> e.getAmount() < 0)
+                .findAny()
+                .isPresent()
         ){//Если заказ невозможен, возвращается false, говорящее об этом, а изменения не сораняются
             return false;
         }

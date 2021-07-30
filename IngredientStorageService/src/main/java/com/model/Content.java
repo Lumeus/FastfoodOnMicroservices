@@ -11,11 +11,11 @@ import javax.persistence.*;
 public class Content {
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
 
-    private String dish;
+    private long dish;
 
-    private String ingredient;
+    private long ingredient;
 
     private double amount;
 }
