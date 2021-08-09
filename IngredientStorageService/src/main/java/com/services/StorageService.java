@@ -40,7 +40,7 @@ public class StorageService {
             }
         }));
 //      Сохранение данных
-        ingredientRepository.save(a);
+        ingredientRepository.saveAll(a);
     }
 
 //    Запрос списка доступных блюд (вся логика в запросе)
@@ -77,7 +77,7 @@ public class StorageService {
             return false;
         }
         else {//Если заказ возможен, возвращается true, говорящее об этом, а изменения сораняются (затем заказ выполняется)
-            ingredientRepository.save(ingredients);
+            ingredientRepository.saveAll(ingredients);
             return true;
         }
     }
