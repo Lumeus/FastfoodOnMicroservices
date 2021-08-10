@@ -15,7 +15,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getUser(long id){return userRepository.findOne(id);}
+    public User getUser(long id){return userRepository.findById(id).get();}
 
     public User editUser(User user){return userRepository.save(user);}
 }

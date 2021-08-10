@@ -61,10 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                // all other requests need to be authenticated
 //                        .anyRequest().authenticated().and()
                 // Use custom authorities
+                .antMatchers("/user/register", "/menu").permitAll()
                 .antMatchers(HttpMethod.GET, "/user/**", "/order/**").hasAuthority("USER")
-                .antMatchers("/user/register").permitAll()
                 .antMatchers("/user/edit", "/order/new").hasAuthority("USER")
                 .antMatchers("/order/{id}", "order/{id}/dishes").hasAuthority("CHEF")
+                .antMatchers("/ingredient").hasAuthority("SHIPPER")
                 .anyRequest().hasAuthority("ADMIN")
 //                .antMatchers().hasAnyAuthority()
                 // make sure we use stateless session; session won't be used to

@@ -1,17 +1,19 @@
 package com.services;
 
-import com.model.Dish;
-import com.model.Order;
-import com.model.OrderDTO;
-import com.model.User;
+import com.client.StorageClient;
+import com.model.*;
 import com.repositories.DishRepository;
 import com.repositories.OrderRepository;
+import com.sun.deploy.cache.BaseLocalApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.net.URI;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -22,12 +24,19 @@ public class OrderService {
     @Autowired
     private DishRepository dishRepository;
 
+    @Autowired
+    private StorageClient storageClient;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
     public List<Order> getOrders(long userId){return orderRepository.findAllByUser(userId);}
 
     public OrderDTO getOrder(long id){
-        if (orderRepository.exists(id)){
+        Optional<Order> order = orderRepository.findById(id);
+        if (order.isPresent()){
             OrderDTO orderDTO = new OrderDTO();
-            orderDTO.setOrder(orderRepository.findOne(id));
+            orderDTO.setOrder(order.get());
             orderDTO.setDishes(dishRepository.findAllByOrder(id));
             return orderDTO;
         }
@@ -37,19 +46,37 @@ public class OrderService {
     public List<Dish> getDishes(long id){return dishRepository.findAllByOrder(id);}
 
     public OrderDTO addOrder(OrderDTO orderDTO){
+//        RestTemplate restTemplate = new RestTemplate();
         Order order = orderDTO.getOrder();
         List<Dish> dishes = orderDTO.getDishes();
-        if (false){// обращение на склад
+        Random random = new Random();
+        List<ServiceInstance> instances = discoveryClient.getInstances("StorageService");
+        URI storageURI = instances.get(random.nextInt(instances.size())).getUri();
+        if (
+                storageClient.takeDishes(storageURI,
+                        dishes.stream()
+                                .map(Dish::getDishId)
+                                .collect(Collectors.toList())
+                )
+        ){// обращение на склад
             orderDTO.setOrder(orderRepository.save(order));
-            orderDTO.setDishes(dishRepository.save(dishes));
+            orderDTO.setDishes(dishRepository.saveAll(dishes));
             return orderDTO;
         }
         return null;
     }
 
     public void setStatus(long id, String status){
-        Order order = orderRepository.findOne(id);
+        Order order = orderRepository.findById(id).get();
         order.setStatus(status);
         orderRepository.save(order);
     }
+
+//    public DishDTO dishToDTO(Dish dish){
+//        DishDTO dishDTO = new DishDTO();
+//        dishDTO.setCost(dish.getCost());
+//        dishDTO.setName(dish.getName());
+//        dishDTO.setId(dish.getDishId());
+//        return dishDTO;
+//    }
 }

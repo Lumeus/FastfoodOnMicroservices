@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -15,7 +16,7 @@ public class Dish {
     @GeneratedValue
     private long id;
     private long order;
-    private long cost;
+    private BigDecimal cost;
     private String name;
     private long dishId;
 }
