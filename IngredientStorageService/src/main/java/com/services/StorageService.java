@@ -53,10 +53,10 @@ public class StorageService {
 //    возвращается результат этой проверки
 //    если проверка не пройдена, заказ выполнен не будет и изменений в базе не последует
     @Transactional
-    public boolean takeDishes(List<Dish> dishes) {
+    public boolean takeDishes(List<Long> dishes) {
 //      Получение данных о содержании ингредиентов в блюдах
         List<Content> contents = new ArrayList<Content>();
-        dishes.forEach(e -> contents.addAll(contentRepository.findByDish(e.getId())));
+        dishes.forEach(e -> contents.addAll(contentRepository.findByDish(e)));
 //      Получение данных об ингредиентах, содержащихся в блюдах
         List<Ingredient> ingredients = ingredientRepository.findByIdIn(contents.stream()
                 .map(Content::getIngredient)
