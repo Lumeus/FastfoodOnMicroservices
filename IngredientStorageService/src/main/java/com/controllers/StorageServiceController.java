@@ -34,7 +34,7 @@ public class StorageServiceController {
 //    возвращается результат этой проверки
 //    если проверка не пройдена, заказ выполнен не будет и изменений в базе не последует
     @RequestMapping(value="/dishes", method = RequestMethod.PUT)
-    public boolean takeDishes(@RequestBody List<Dish> dishes) {
+    public boolean takeDishes(@RequestBody List<Long> dishes) {
         return storageService.takeDishes(dishes);
     }
 }
