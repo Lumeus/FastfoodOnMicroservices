@@ -4,12 +4,10 @@ import com.client.StorageClient;
 import com.model.*;
 import com.repositories.DishRepository;
 import com.repositories.OrderRepository;
-import com.sun.deploy.cache.BaseLocalApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.*;
@@ -49,14 +47,10 @@ public class OrderService {
 //        RestTemplate restTemplate = new RestTemplate();
         Order order = orderDTO.getOrder();
         List<Dish> dishes = orderDTO.getDishes();
-        Random random = new Random();
-        List<ServiceInstance> instances = discoveryClient.getInstances("StorageService");
-        URI storageURI = instances.get(random.nextInt(instances.size())).getUri();
         if (
-                storageClient.takeDishes(storageURI,
-                        dishes.stream()
-                                .map(Dish::getDishId)
-                                .collect(Collectors.toList())
+                storageClient.takeDishes(dishes.stream()
+                        .map(Dish::getDishId)
+                        .collect(Collectors.toList())
                 )
         ){// обращение на склад
             orderDTO.setOrder(orderRepository.save(order));
