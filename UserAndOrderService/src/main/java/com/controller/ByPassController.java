@@ -2,6 +2,8 @@ package com.controller;
 
 import com.client.StorageClient;
 import com.model.DishDTO;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -14,6 +16,8 @@ import java.util.Random;
 @CrossOrigin
 @RestController
 public class ByPassController {
+    private final Log logger = LogFactory.getLog(this.getClass());
+
     @Autowired
     DiscoveryClient discoveryClient;
 
@@ -22,17 +26,11 @@ public class ByPassController {
 
     @RequestMapping(value = "menu", method = RequestMethod.GET)
     List<DishDTO> dishes(){
-        Random random = new Random();
-        List<ServiceInstance> instances = discoveryClient.getInstances("StorageService");
-        URI storageURI = instances.get(random.nextInt(instances.size())).getUri();
-        return storageClient.dishes(storageURI);
+        return storageClient.dishes();
     }
 
     @RequestMapping(value = "ingredient", method = RequestMethod.PUT)
     void ingredients(@RequestBody List<Object> ingredients){
-        Random random = new Random();
-        List<ServiceInstance> instances = discoveryClient.getInstances("StorageService");
-        URI storageURI = instances.get(random.nextInt(instances.size())).getUri();
-        storageClient.ingredients(storageURI, ingredients);
+        storageClient.ingredients(ingredients);
     }
 }
