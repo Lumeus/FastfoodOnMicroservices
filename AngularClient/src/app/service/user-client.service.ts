@@ -10,7 +10,7 @@ import {root} from "rxjs/internal-compatibility";
 })
 export class UserClientService {
 
-  rootURL: string = "localhost:8080"
+  rootURL: string = "http://localhost:8080"
 
   constructor(private http: HttpClient) {}
 

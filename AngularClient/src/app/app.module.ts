@@ -19,6 +19,7 @@ import { UsersComponent } from './users/users.component';
 import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {HttpClientModule} from "@angular/common/http";
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
