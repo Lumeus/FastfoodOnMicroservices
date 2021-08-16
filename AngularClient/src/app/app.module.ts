@@ -18,6 +18,7 @@ import { CartComponent } from './cart/cart.component';
 import { UsersComponent } from './users/users.component';
 import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { IngredientsComponent } from './ingredients/ingredients.component';
     IngredientsComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],
