@@ -2,10 +2,7 @@ package com.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
@@ -13,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "dish", schema = "public")
 public class Dish {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long order;
     private BigDecimal cost;

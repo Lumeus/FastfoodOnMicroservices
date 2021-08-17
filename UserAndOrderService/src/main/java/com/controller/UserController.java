@@ -6,6 +6,7 @@ import com.services.OrderService;
 import com.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +34,10 @@ public class UserController {
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public User register(@RequestBody User user){
-        if (user.getRole().equals("USER")) return userService.addUser(user);
+        if (user.getRole().equals("USER")){
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            return userService.addUser(user);
+        }
         return null;
     }
 
