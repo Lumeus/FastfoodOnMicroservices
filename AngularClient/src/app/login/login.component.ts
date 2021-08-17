@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthClientService} from "../service/auth-client.service";
-import {DataService} from "../service/data.service";
 import {User} from "../model/user"
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -15,16 +15,21 @@ export class LoginComponent implements OnInit {
   show: boolean = false
   info: User | null = null
 
-  constructor(private authClient: AuthClientService, private data: DataService) {}
+  constructor(
+    private authClient: AuthClientService,
+    private router: Router,
+    private rout: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {}
 
   login(): void {
     this.authClient.login(this.username, this.password).subscribe(response => {
       console.log(response)
-      this.data.set('token', response.token)
-      this.data.set('user', <User>response.user)
-      this.info = this.data.get('user')
+      localStorage.setItem('token', response.token)
+      localStorage.setItem('user', JSON.stringify(response.user))
+      this.info = JSON.parse(<string>localStorage.getItem('user'))
+      this.router.navigate([JSON.parse(<string>localStorage.getItem('user')).role.toLowerCase()])
     })
   }
 

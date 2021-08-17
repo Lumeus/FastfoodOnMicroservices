@@ -10,40 +10,33 @@ import {root} from "rxjs/internal-compatibility";
 })
 export class UserClientService {
 
-  rootURL: string = "http://localhost:8080"
-
   constructor(private http: HttpClient) {}
 
   public postOrder(order: OrderDTO): Observable<any>{
-    return this.http.post(this.rootURL + "/order/new", order)
+    return this.http.post("/order/new", order)
   }
 
   public getOrder(id: number, token: string): Observable<any>{
-    return this.http.get(this.rootURL + "/order/" + id,
-      {headers: new HttpHeaders({"Authorization": token})})
+    return this.http.get("/order/" + id)
   }
 
   public getDishes(id: number, token: string): Observable<any>{
-    return this.http.get(this.rootURL + "/order/" + id + "/dishes",
-      {headers: new HttpHeaders({"Authorization": token})})
+    return this.http.get("/order/" + id + "/dishes")
   }
 
   public putUser(user: User, token: string): Observable<any>{
-    return this.http.put(this.rootURL + "user/edit", user,
-      {headers: new HttpHeaders({"Authorization": token})})
+    return this.http.put("user/edit", user)
   }
 
   public getUser(id: number, token: string): Observable<any>{
-    return this.http.get(this.rootURL + "/user/" + id,
-      {headers: new HttpHeaders({"Authorization": token})})
+    return this.http.get("/user/" + id)
   }
 
   public getOrders(id: number, token: string): Observable<any>{
-    return this.http.get(this.rootURL + "/user/" + id + "/orders",
-      {headers: new HttpHeaders({"Authorization": token})})
+    return this.http.get("/user/" + id + "/orders")
   }
 
   public getMenu(): Observable<any>{
-    return this.http.get(this.rootURL + "/menu")
+    return this.http.get("/menu")
   }
 }

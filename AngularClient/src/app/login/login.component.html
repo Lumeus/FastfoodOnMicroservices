@@ -2,9 +2,9 @@
 <input id="login" [(ngModel)]="username" placeholder="login">
 <input id="password" [(ngModel)]="password" placeholder="password">
 <button (click)="login()">LOGIN</button>
-<!--<div *ngIf="info">-->
-<!--  {{info.username}}-->
-<!--  {{info.password}}-->
-<!--  {{info.role}}-->
-<!--</div>-->
-{{info}}
+<div *ngIf="info">
+  {{info.username}}
+  {{info.password}}
+  {{info.role}}
+</div>
+<!--{{info}}-->
