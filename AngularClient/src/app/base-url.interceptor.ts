@@ -7,7 +7,6 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from "../environments/environment";
-import {isNull} from "util";
 
 @Injectable()
 export class BaseUrlInterceptor implements HttpInterceptor {

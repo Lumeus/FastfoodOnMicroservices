@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RedirectService} from "../service/redirect.service";
 
 @Component({
   selector: 'app-shipper',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShipperComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private redirect: RedirectService
+  ) { }
 
   ngOnInit(): void {
+    this.redirect.from('SHIPPER')
   }
 
 }

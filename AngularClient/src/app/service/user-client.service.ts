@@ -16,23 +16,23 @@ export class UserClientService {
     return this.http.post("/order/new", order)
   }
 
-  public getOrder(id: number, token: string): Observable<any>{
+  public getOrder(id: number): Observable<any>{
     return this.http.get("/order/" + id)
   }
 
-  public getDishes(id: number, token: string): Observable<any>{
+  public getDishes(id: number): Observable<any>{
     return this.http.get("/order/" + id + "/dishes")
   }
 
-  public putUser(user: User, token: string): Observable<any>{
+  public putUser(user: User): Observable<any>{
     return this.http.put("user/edit", user)
   }
 
-  public getUser(id: number, token: string): Observable<any>{
+  public getUser(id: number): Observable<any>{
     return this.http.get("/user/" + id)
   }
 
-  public getOrders(id: number, token: string): Observable<any>{
+  public getOrders(id: number): Observable<any>{
     return this.http.get("/user/" + id + "/orders")
   }
 

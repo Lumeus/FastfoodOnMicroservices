@@ -6,12 +6,14 @@ import {AdminComponent} from "./admin/admin.component";
 import {ChefComponent} from "./chef/chef.component";
 import {UserComponent} from "./user/user.component";
 import {ShipperComponent} from "./shipper/shipper.component";
-import {LoginComponent} from "./login/login.component";
-import {RegisterComponent} from "./register/register.component";
-import {MenuComponent} from "./menu/menu.component";
-import {OrdersComponent} from "./orders/orders.component";
-import {AccountComponent} from "./account/account.component";
-import {CartComponent} from "./cart/cart.component";
+import {LoginComponent} from "./auth/login/login.component";
+import {RegisterComponent} from "./auth/register/register.component";
+import {MenuComponent} from "./user/menu/menu.component";
+import {OrdersComponent} from "./user/orders/orders.component";
+import {AccountComponent} from "./user/account/account.component";
+import {CartComponent} from "./user/cart/cart.component";
+import {AccountEditComponent} from "./user/account-edit/account-edit.component";
+import {OrderDetailComponent} from "./order-detail/order-detail.component";
 
 const routs: Routes = [
   {path: "", redirectTo: "auth", pathMatch: "full" },
@@ -47,7 +49,9 @@ const routs: Routes = [
       {path: "menu", component: MenuComponent},
       {path: "account", component: AccountComponent},
       {path: "cart", component: CartComponent},
-      {path: "orders", component: OrdersComponent}
+      {path: "orders", component: OrdersComponent},
+      {path: "account/edit", component: AccountEditComponent},
+      {path: "orders/:id", component: OrderDetailComponent}
     ]
   }
 ]

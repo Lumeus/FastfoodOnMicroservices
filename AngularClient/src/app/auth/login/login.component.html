@@ -1,6 +1,6 @@
 <p>login works!</p>
 <input id="login" [(ngModel)]="username" placeholder="login">
-<input id="password" [(ngModel)]="password" placeholder="password">
+<input id="password" [(ngModel)]="password" placeholder="password" type="password">
 <button (click)="login()">LOGIN</button>
 <div *ngIf="info">
   {{info.username}}

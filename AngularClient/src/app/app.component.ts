@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {User} from "./model/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,13 @@ import {User} from "./model/user";
 export class AppComponent {
   title: string = 'AngularClient';
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {}
+
+  logout(): void{
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    this.router.navigate([''])
   }
 }

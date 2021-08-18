@@ -1,0 +1,9 @@
+<p>menu works!</p>
+<table>
+  <tr *ngFor="let dish of menu">
+    <td>{{dish.name}}</td>
+    <td>{{dish.info}}</td>
+    <td>{{dish.cost}}</td>
+    <td><button (click)="addToCart(dish)">add to cart</button></td>
+  </tr>
+</table>

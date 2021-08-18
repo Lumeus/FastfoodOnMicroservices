@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AuthClientService} from "../service/auth-client.service";
-import {User} from "../model/user"
+import {AuthClientService} from "../../service/auth-client.service";
+import {User} from "../../model/user"
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -21,12 +21,13 @@ export class LoginComponent implements OnInit {
     private rout: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   login(): void {
     this.authClient.login(this.username, this.password).subscribe(response => {
       console.log(response)
-      localStorage.setItem('token', response.token)
+      localStorage.setItem('token', 'Bearer ' + response.token)
       localStorage.setItem('user', JSON.stringify(response.user))
       this.info = JSON.parse(<string>localStorage.getItem('user'))
       this.router.navigate([JSON.parse(<string>localStorage.getItem('user')).role.toLowerCase()])

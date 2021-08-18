@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthClientService} from "../service/auth-client.service";
-import {User} from "../model/user";
+import {AuthClientService} from "../../service/auth-client.service";
+import {User} from "../../model/user";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 

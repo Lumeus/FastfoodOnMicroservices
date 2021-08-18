@@ -1,0 +1,12 @@
+<p>orders-detail works!</p>
+time of ordering: {{order.order.timeOfOrdering | date: 'yy.mm.dd hh:mm'}}
+completion time: {{order.order.completionTime | date: 'yy.mm.dd hh:mm'}}
+price: {{order.order.price}}
+status: {{order.order.status}}
+<table>
+  <tr *ngFor="let dish of order.dishes">
+    <td>{{dish.name}}</td>
+    <td>{{dish.info}}</td>
+    <td>{{dish.cost}}</td>
+  </tr>
+</table>
