@@ -6,6 +6,7 @@ import com.model.OrderDTO;
 import com.model.User;
 import com.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +21,10 @@ public class OrderController {
     OrderService orderService;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public OrderDTO getOrder(@PathVariable(value = "id") long id){
-        return orderService.getOrder(id);
+    public ResponseEntity<OrderDTO> getOrder(@PathVariable(value = "id") long id){
+        OrderDTO response = orderService.getOrder(id);
+        if (response == null) return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(response);
     }
 
     //получается лишний, пока оставлю
