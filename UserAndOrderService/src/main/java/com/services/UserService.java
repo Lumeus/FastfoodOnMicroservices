@@ -5,6 +5,8 @@ import com.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+
 @Service
 public class UserService {
     @Autowired
@@ -12,6 +14,7 @@ public class UserService {
 
     public User addUser(User user){
         if (userRepository.existsByUsername(user.getUsername())) return null;
+        user.setId(userRepository.count() + 1);
         return userRepository.save(user);
     }
 

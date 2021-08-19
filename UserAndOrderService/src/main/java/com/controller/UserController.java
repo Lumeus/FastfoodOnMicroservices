@@ -2,10 +2,14 @@ package com.controller;
 
 import com.model.Order;
 import com.model.User;
+import com.security.config.JwtTokenUtil;
 import com.services.OrderService;
 import com.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,29 +25,48 @@ public class UserController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable(value = "id") long id){
-        return userService.getUser(id);
+    public ResponseEntity<User> getUser(@PathVariable(value = "id") long id){
+        User response = userService.getUser(id);
+        if (response == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(response);
     }
 
     @RequestMapping(value = "{id}/orders", method = RequestMethod.GET)
-    public List<Order> getOrders(@PathVariable(value = "id") long id){
-        return orderService.getOrders(id);
+    public ResponseEntity<List<Order>> getOrders(@PathVariable(value = "id") long id){
+        return ResponseEntity.ok(orderService.getOrders(id));
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public User register(@RequestBody User user){
-        if (user.getRole().equals("USER")) return userService.addUser(user);
-        return null;
+    public ResponseEntity<User> register(@RequestBody User user){
+        if (user.getRole().equals("USER")){
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            User response = userService.addUser(user);
+            if (response == null) return ResponseEntity.badRequest().build();
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.status(HttpStatus.LOCKED).build();
     }
 
     @RequestMapping(value = "register/admin", method = RequestMethod.POST)
-    public User adminRegister(@RequestBody User user){
-        return userService.addUser(user);
+    public ResponseEntity<User> adminRegister(@RequestBody User user){
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        User response = userService.addUser(user);
+        if (response == null) return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(response);
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.PUT)
-    public User edit(@RequestBody User user){
-        return userService.editUser(user);
+    public ResponseEntity<User> edit(@RequestBody User user, @RequestHeader("Authorization") String token){
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        if(user.getId() != userService.getUser(username).getId() || !user.getRole().equals("USER"))
+            return ResponseEntity.badRequest().build();
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        User response = userService.editUser(user);
+        if (response == null) return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(response);
     }
 }
