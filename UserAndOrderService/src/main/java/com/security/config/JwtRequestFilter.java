@@ -33,17 +33,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // only the Token
         if (requestTokenHeader == null) {
             logger.warn("JWT Token is null");
-            Enumeration<String> headerNames = request.getHeaderNames();
-            while (headerNames.hasMoreElements()){
-                logger.warn(headerNames.nextElement());
-            }
-            logger.warn("JWT Token is null");
-            Enumeration<String> attributeNames = request.getAttributeNames();
-            while (attributeNames.hasMoreElements()){
-                logger.warn(attributeNames.nextElement());
-            }
-            logger.warn("JWT Token is null");
-            logger.warn(chain);
         }
         else if(requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);

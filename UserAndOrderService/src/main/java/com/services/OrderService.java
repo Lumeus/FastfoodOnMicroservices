@@ -55,6 +55,9 @@ public class OrderService {
                         .collect(Collectors.toList())
                 )
         ){// обращение на склад
+            order.setId(orderRepository.count() + 1);
+            final long[] dishCount = {dishRepository.count() + 1};
+            dishes.forEach(dish -> dish.setDishId(dishCount[0]++));
             orderDTO.setOrder(orderRepository.save(order));
             orderDTO.setDishes(dishRepository.saveAll(dishes));
             return orderDTO;
