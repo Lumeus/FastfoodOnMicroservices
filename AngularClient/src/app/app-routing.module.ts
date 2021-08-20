@@ -14,6 +14,8 @@ import {AccountComponent} from "./user/account/account.component";
 import {CartComponent} from "./user/cart/cart.component";
 import {AccountEditComponent} from "./user/account-edit/account-edit.component";
 import {OrderDetailComponent} from "./order-detail/order-detail.component";
+import {OrdersDetailComponent} from "./user/orders-detail/orders-detail.component";
+import {CartOrderingComponent} from "./user/cart-ordering/cart-ordering.component";
 
 const routs: Routes = [
   {path: "", redirectTo: "auth", pathMatch: "full" },
@@ -49,9 +51,10 @@ const routs: Routes = [
       {path: "menu", component: MenuComponent},
       {path: "account", component: AccountComponent},
       {path: "cart", component: CartComponent},
+      {path: "cart/ordering", component: CartOrderingComponent},
       {path: "orders", component: OrdersComponent},
       {path: "account/edit", component: AccountEditComponent},
-      {path: "orders/:id", component: OrderDetailComponent}
+      {path: "orders/:id", component: OrdersDetailComponent}
     ]
   }
 ]

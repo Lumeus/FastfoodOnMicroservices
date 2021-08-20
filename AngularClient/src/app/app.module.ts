@@ -23,6 +23,7 @@ import {FormsModule} from "@angular/forms";
 import {BaseUrlInterceptor} from "./base-url.interceptor";
 import { AccountEditComponent } from './user/account-edit/account-edit.component';
 import { OrdersDetailComponent } from './user/orders-detail/orders-detail.component';
+import { CartOrderingComponent } from './user/cart-ordering/cart-ordering.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { OrdersDetailComponent } from './user/orders-detail/orders-detail.compon
     OrdersAdminComponent,
     IngredientsComponent,
     AccountEditComponent,
-    OrdersDetailComponent
+    OrdersDetailComponent,
+    CartOrderingComponent
   ],
   imports: [
     HttpClientModule,

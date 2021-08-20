@@ -1,1 +1,9 @@
 <p>cart works!</p>
+<table>
+  <tr *ngFor="let dish of cart; let i = index">
+    <td>{{dish.name}}</td>
+    <td>{{dish.cost | number: '.2'}}</td>
+    <td><button (click)="deleteFromCart(i)">DELETE</button></td>
+  </tr>
+</table>
+<button (click)="ordering()">ORDERING</button>

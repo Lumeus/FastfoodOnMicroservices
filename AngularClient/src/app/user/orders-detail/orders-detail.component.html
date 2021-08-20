@@ -6,7 +6,6 @@ status: {{order.order.status}}
 <table>
   <tr *ngFor="let dish of order.dishes">
     <td>{{dish.name}}</td>
-    <td>{{dish.info}}</td>
-    <td>{{dish.cost}}</td>
+    <td>{{dish.cost | number: '.2'}}</td>
   </tr>
 </table>
