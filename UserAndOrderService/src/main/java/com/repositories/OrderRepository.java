@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllByUser(long userId);
-    List<Order> findAllByCompletionTimeBeforeAndStatus(Timestamp completionTime, String status);
+    List<Order> findAllByCompletionTimeBetweenAndStatus(Timestamp time1, Timestamp time2, String status);
 }

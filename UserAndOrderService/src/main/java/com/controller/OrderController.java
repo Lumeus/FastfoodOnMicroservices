@@ -43,8 +43,12 @@ public class OrderController {
         orderService.setStatus(id, status);
     }
 
-    //тут должен быть запрос с кухни / альтернатива: уведомления
-//    @RequestMapping(value = "complete/before/{time1}/after/{time2}", method = RequestMethod.GET)
-//    public List<Order> getOrders(){
-//    }
+    // запрос с кухни
+    @RequestMapping(value = "complete/between/{time1}/{time2}", method = RequestMethod.GET)
+    public List<OrderDTO> getOrders(
+            @PathVariable(value = "time1" ) Timestamp time1,
+            @PathVariable(value = "time2" ) Timestamp time2
+    ){
+        return orderService.getOrders(time1, time2);
+    }
 }

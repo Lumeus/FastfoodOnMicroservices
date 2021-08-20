@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,18 @@ public class OrderService {
         Order order = orderRepository.findById(id).get();
         order.setStatus(status);
         orderRepository.save(order);
+    }
+
+    public List<OrderDTO> getOrders(Timestamp time1, Timestamp time2){
+        List<Order> orders = orderRepository.findAllByCompletionTimeBetweenAndStatus(time1, time2, "ПРИНЯТО");
+        List<OrderDTO> dtos = new ArrayList<>();
+        orders.forEach(order -> {
+            OrderDTO dto = new OrderDTO();
+            dto.setOrder(order);
+            dto.setDishes(dishRepository.findAllByOrder(order.getId()));
+            dtos.add(dto);
+        });
+        return dtos;
     }
 
 //    public DishDTO dishToDTO(Dish dish){
