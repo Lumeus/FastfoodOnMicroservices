@@ -12,6 +12,7 @@ public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(name = "`order`")
     private long order;
     private BigDecimal cost;
     private String name;
