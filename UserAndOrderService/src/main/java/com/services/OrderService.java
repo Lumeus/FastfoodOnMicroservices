@@ -10,6 +10,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,7 +56,11 @@ public class OrderService {
         ){// обращение на склад
             order.setId(orderRepository.count() + 1);
             final long[] dishCount = {dishRepository.count() + 1};
-            dishes.forEach(dish -> dish.setDishId(dishCount[0]++));
+            dishes.forEach(dish -> {
+                dish.setId(dishCount[0]++);
+                dish.setOrder(order.getId());
+            });
+            order.setStatus("ПРИНЯТО");
             orderDTO.setOrder(orderRepository.save(order));
             orderDTO.setDishes(dishRepository.saveAll(dishes));
             return orderDTO;
@@ -67,6 +72,18 @@ public class OrderService {
         Order order = orderRepository.findById(id).get();
         order.setStatus(status);
         orderRepository.save(order);
+    }
+
+    public List<OrderDTO> getOrders(Timestamp time1, Timestamp time2){
+        List<Order> orders = orderRepository.findAllByCompletionTimeBetweenAndStatus(time1, time2, "ПРИНЯТО");
+        List<OrderDTO> dtos = new ArrayList<>();
+        orders.forEach(order -> {
+            OrderDTO dto = new OrderDTO();
+            dto.setOrder(order);
+            dto.setDishes(dishRepository.findAllByOrder(order.getId()));
+            dtos.add(dto);
+        });
+        return dtos;
     }
 
 //    public DishDTO dishToDTO(Dish dish){
