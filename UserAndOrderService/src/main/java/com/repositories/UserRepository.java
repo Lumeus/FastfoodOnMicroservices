@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select (count(u)>0) from User u where u.username = :username")
     boolean existsByUsername(String username);
+    @Query("select max(u.id) + 1 from User u")
+    long getNextID();
 }

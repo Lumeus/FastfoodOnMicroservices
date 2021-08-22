@@ -54,8 +54,8 @@ public class OrderService {
                         .collect(Collectors.toList())
                 )
         ){// обращение на склад
-            order.setId(orderRepository.count() + 1);
-            final long[] dishCount = {dishRepository.count() + 1};
+            order.setId(orderRepository.getNextID());
+            final long[] dishCount = {dishRepository.getNextID()};
             dishes.forEach(dish -> {
                 dish.setId(dishCount[0]++);
                 dish.setOrder(order.getId());
@@ -74,8 +74,8 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public List<OrderDTO> getOrders(Timestamp time1, Timestamp time2){
-        List<Order> orders = orderRepository.findAllByCompletionTimeBetweenAndStatus(time1, time2, "ПРИНЯТО");
+    public List<OrderDTO> getOrders(Timestamp time){
+        List<Order> orders = orderRepository.findAllByCompletionTimeBeforeAndStatus(time, "ПРИНЯТО");
         List<OrderDTO> dtos = new ArrayList<>();
         orders.forEach(order -> {
             OrderDTO dto = new OrderDTO();
