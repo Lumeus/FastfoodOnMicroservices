@@ -58,7 +58,11 @@ public class OrderService {
         ){// обращение на склад
             order.setId(orderRepository.count() + 1);
             final long[] dishCount = {dishRepository.count() + 1};
-            dishes.forEach(dish -> dish.setDishId(dishCount[0]++));
+            dishes.forEach(dish -> {
+                dish.setId(dishCount[0]++);
+                dish.setOrder(order.getId());
+            });
+            order.setStatus("ПРИНЯТО");
             orderDTO.setOrder(orderRepository.save(order));
             orderDTO.setDishes(dishRepository.saveAll(dishes));
             return orderDTO;
