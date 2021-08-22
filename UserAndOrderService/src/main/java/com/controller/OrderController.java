@@ -44,11 +44,8 @@ public class OrderController {
     }
 
     // запрос с кухни
-    @RequestMapping(value = "complete/between/{time1}/{time2}", method = RequestMethod.GET)
-    public List<OrderDTO> getOrders(
-            @PathVariable(value = "time1" ) Timestamp time1,
-            @PathVariable(value = "time2" ) Timestamp time2
-    ){
-        return orderService.getOrders(time1, time2);
+    @RequestMapping(value = "complete/before/{time}", method = RequestMethod.GET)
+    public List<OrderDTO> getOrders(@PathVariable(value = "time" ) Timestamp time){
+        return orderService.getOrders(time);
     }
 }
