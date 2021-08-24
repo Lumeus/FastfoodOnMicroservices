@@ -33,4 +33,9 @@ public class ByPassController {
     void ingredients(@RequestBody List<Object> ingredients){
         storageClient.ingredients(ingredients);
     }
+
+    @RequestMapping(value = "ingredient", method = RequestMethod.GET)
+    List<Object> ingredients(){
+        return storageClient.getIngredients();
+    }
 }

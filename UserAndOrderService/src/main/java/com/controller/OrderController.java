@@ -1,13 +1,10 @@
 package com.controller;
 
 import com.model.Dish;
-import com.model.Order;
 import com.model.OrderDTO;
-import com.model.User;
 import com.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -47,5 +44,10 @@ public class OrderController {
     @RequestMapping(value = "complete/before/{time}", method = RequestMethod.GET)
     public List<OrderDTO> getOrders(@PathVariable(value = "time" ) Timestamp time){
         return orderService.getOrders(time);
+    }
+
+    @RequestMapping(value = "all", method = RequestMethod.GET)
+    public List<OrderDTO> getAllOrders() {
+        return orderService.getAllOrders();
     }
 }
