@@ -4,12 +4,11 @@ import com.client.StorageClient;
 import com.model.*;
 import com.repositories.DishRepository;
 import com.repositories.OrderRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 
-import java.net.URI;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -71,11 +70,25 @@ public class OrderService {
     public void setStatus(long id, String status){
         Order order = orderRepository.findById(id).get();
         order.setStatus(status);
+        if (status.equals("ВЫДАНО"))
+            order.setCompletionTime(new Timestamp(System.currentTimeMillis()));
         orderRepository.save(order);
     }
 
     public List<OrderDTO> getOrders(Timestamp time){
         List<Order> orders = orderRepository.findAllByCompletionTimeBeforeAndStatus(time, "ПРИНЯТО");
+        orders.addAll(orderRepository.findAllByCompletionTimeBeforeAndStatus(time, "ГОТОВИТСЯ"));
+        orders.addAll(orderRepository.findAllByCompletionTimeBeforeAndStatus(time, "ГОТОВО"));
+        return getOrderDTOS(orders);
+    }
+
+    public List<OrderDTO> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return getOrderDTOS(orders);
+    }
+
+    @NotNull
+    private List<OrderDTO> getOrderDTOS(List<Order> orders) {
         List<OrderDTO> dtos = new ArrayList<>();
         orders.forEach(order -> {
             OrderDTO dto = new OrderDTO();
@@ -85,7 +98,6 @@ public class OrderService {
         });
         return dtos;
     }
-
 //    public DishDTO dishToDTO(Dish dish){
 //        DishDTO dishDTO = new DishDTO();
 //        dishDTO.setCost(dish.getCost());
