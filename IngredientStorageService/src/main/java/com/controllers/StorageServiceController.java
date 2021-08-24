@@ -22,6 +22,11 @@ public class StorageServiceController {
         return storageService.getDishes();
     }
 
+//    получение информации об остатке на складе
+    @RequestMapping(value="/ingredient", method = RequestMethod.GET)
+    public List<Ingredient> getIngredients() {
+        return storageService.getIngredients();
+    }
 //    Обновление остатка ингредиентов на складе
 //    всвязи с поступлением новой партии или списанием старой
     @RequestMapping(value="/ingredient", method = RequestMethod.PUT)
