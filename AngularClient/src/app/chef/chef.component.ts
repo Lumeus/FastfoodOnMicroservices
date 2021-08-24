@@ -21,23 +21,14 @@ export class ChefComponent implements OnInit, OnDestroy {
 
   constructor(
     private redirect: RedirectService,
-    private chefClient: ChefClientService,
-    private authClient: AuthClientService
+    private chefClient: ChefClientService
   ) { }
 
   ngOnInit(): void {
     this.redirect.from('CHEF')
-    console.log('ok3')
-    this.chefClient
-      .getOrders(new Date(Date.now() + this.time))
-      .subscribe(orders => {
-        console.log('ok4')
-        this.orders = orders
-      })
-    console.log('ok1')
-    this.subscription = interval(this.period).subscribe(_ => this.getOrders())
-
-    console.log('ok2')
+    this.getOrders()
+    this.subscription = interval(this.period)
+      .subscribe(_ => this.getOrders())
   }
 
   setStatus(id: number, status: string): void{
@@ -45,15 +36,9 @@ export class ChefComponent implements OnInit, OnDestroy {
   }
 
   getOrders() {
-    console.log('ok3')
     this.chefClient
       .getOrders(new Date(Date.now() + this.time))
-      .subscribe(
-        orders => {
-          console.log('ok4')
-          this.orders = orders
-        }
-      )
+      .subscribe(orders => this.orders = orders)
   }
 
   ngOnDestroy() {
