@@ -51,7 +51,7 @@ export class CartOrderingComponent implements OnInit {
     this.order.order.timeOfOrdering.setTime(Date.now())
     this.order.order.completionTime.setTime(Date.parse(this.completionTime))
     this.userClient.postOrder(this.order).subscribe(order => {
-      this.router.navigate(["orders", order.order.id])
+      this.router.navigate(["user", "orders", order.order.id])
     })
   }
 

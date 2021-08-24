@@ -1,1 +1,33 @@
 <p>chef works!</p>
+<input id="time" [(ngModel)]="time" type="number">
+
+<table>
+  <tr *ngFor="let order of orders; let i = index">
+    <td>
+      <table>
+        <tr>{{order.order.timeOfOrdering | date: 'yy.mm.dd hh:mm'}}</tr>
+        <tr>{{order.order.completionTime | date: 'yy.mm.dd hh:mm'}}</tr>
+        <tr>{{order.order.price}}</tr>
+        <tr>{{order.order.status}}</tr>
+        <tr [ngSwitch]="order.order.status">
+          <ng-template ngSwitchCase="ПРИНЯТО">
+            <button (click)="setStatus(order.order.id, 'ГОТОВИТСЯ')">ГОТОВИТСЯ</button>
+          </ng-template>
+          <ng-template ngSwitchCase="ГОТОВИТСЯ">
+            <button (click)="setStatus(order.order.id, 'ГОТОВО')">ГОТОВО</button>
+          </ng-template>
+          <ng-template ngSwitchCase="ГОТОВО">
+            <button (click)="setStatus(order.order.id, 'ВЫДАНО')">ВЫДАНО</button>
+          </ng-template>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tr *ngFor="let dish of order.dishes">
+          <td>{{dish.name}}</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

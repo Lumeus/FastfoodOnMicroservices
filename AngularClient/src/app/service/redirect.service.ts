@@ -17,9 +17,10 @@ export class RedirectService {
     } else {
       let role = JSON.parse(user).role
       switch (role) {
-        case component: break
-        case 'USER':
+        case component:
         case 'ADMIN':
+          break
+        case 'USER':
         case 'CHEF':
         case 'SHIPPER':
           this.router.navigate([role.toLowerCase()])
