@@ -43,6 +43,11 @@ public class StorageService {
         ingredientRepository.saveAll(a);
     }
 
+//    получение информации по всем ингредиентам
+    public List<Ingredient> getIngredients(){
+        return ingredientRepository.findAll();
+    }
+
 //    Запрос списка доступных блюд (вся логика в запросе)
     public List<Dish> getDishes(){
         return dishRepository.getDishes();
