@@ -62,9 +62,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                        .anyRequest().authenticated().and()
                 // Use custom authorities
                 .antMatchers("/user/register", "/menu").permitAll()
-                .antMatchers(HttpMethod.GET, "/user/**", "/order/{id}", "/order/{id}/dishes").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers(HttpMethod.GET, "/user/{id}", "/user/{id}/orders", "/order/{id}", "/order/{id}/dishes").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/user/edit", "/order/new").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/order/{id}", "order/{id}/dishes", "/order/complete/before/{time}").hasAnyAuthority("ADMIN", "CHEF")
+                .antMatchers("/order/{id}", "/order/{id}/dishes", "/order/complete/before/{time}").hasAnyAuthority("ADMIN", "CHEF")
                 .antMatchers("/ingredient").hasAnyAuthority("ADMIN", "SHIPPER")
                 .anyRequest().hasAuthority("ADMIN")
 //                .antMatchers().hasAnyAuthority()
