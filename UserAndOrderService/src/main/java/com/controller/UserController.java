@@ -61,12 +61,17 @@ public class UserController {
 
     @RequestMapping(value = "edit", method = RequestMethod.PUT)
     public ResponseEntity<User> edit(@RequestBody User user, @RequestHeader("Authorization") String token){
-        String username = jwtTokenUtil.getUsernameFromToken(token);
+        String username = jwtTokenUtil.getUsernameFromToken(token.substring(7));
         if(user.getId() != userService.getUser(username).getId() || !user.getRole().equals("USER"))
             return ResponseEntity.badRequest().build();
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         User response = userService.editUser(user);
         if (response == null) return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(response);
+    }
+
+    @RequestMapping(value = "all", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 }
