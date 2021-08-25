@@ -1,0 +1,12 @@
+<p>register-admin works!</p>
+<input id="login" [(ngModel)]="user.username" placeholder="login">
+<input id="password" [(ngModel)]="user.password" placeholder="password" type="password">
+<input id="passwordCheck" [(ngModel)]="passwordCheck" placeholder="password" type="password">
+<select id="role" [(ngModel)]="user.role">
+  <option>USER</option>
+  <option>CHEF</option>
+  <option>SHIPPER</option>
+  <option>ADMIN</option>
+</select>
+{{message}}
+<button (click)="register()">REGISTER</button>

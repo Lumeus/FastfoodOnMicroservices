@@ -1,1 +1,9 @@
 <p>users works!</p>
+<table>
+  <tr *ngFor="let user of users.sort(userSort)">
+    <td>{{user.id}}</td>
+    <td>{{user.username}}</td>
+    <td>{{user.role}}</td>
+    <td><a routerLink="./{{user.id}}">orders</a></td>
+  </tr>
+</table>

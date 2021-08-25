@@ -28,9 +28,10 @@ export class ShipperComponent implements OnInit {
       .subscribe(_ => this.getIngredients())
   }
 
-  getIngredients() {
-    this.shipperClient.getIngredients()
-      .subscribe(ingredients => this.ingredients = ingredients)
+  getIngredients(): void {
+    this.shipperClient.getIngredients().subscribe(
+      ingredients => this.ingredients = ingredients
+    )
   }
 
   putIngredients() {

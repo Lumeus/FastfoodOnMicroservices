@@ -16,6 +16,6 @@ export class AuthClientService {
   }
 
   public register(user: User): Observable<any>{
-    return this.http.post("/register", user)
+    return this.http.post("/user/register", user)
   }
 }

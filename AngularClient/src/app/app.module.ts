@@ -24,6 +24,8 @@ import { AccountEditComponent } from './user/account-edit/account-edit.component
 import { OrdersDetailComponent } from './user/orders-detail/orders-detail.component';
 import { CartOrderingComponent } from './user/cart-ordering/cart-ordering.component';
 import { OrdersUserComponent } from './admin/orders-user/orders-user.component';
+import { RegisterAdminComponent } from './admin/register-admin/register-admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -45,13 +47,15 @@ import { OrdersUserComponent } from './admin/orders-user/orders-user.component';
     AccountEditComponent,
     OrdersDetailComponent,
     CartOrderingComponent,
-    OrdersUserComponent
+    OrdersUserComponent,
+    RegisterAdminComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

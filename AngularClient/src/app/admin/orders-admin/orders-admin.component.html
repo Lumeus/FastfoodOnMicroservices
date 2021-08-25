@@ -1,1 +1,12 @@
 <p>orders-admin works!</p>
+<table>
+  <tr *ngFor="let order of orders">
+    <td>{{order.id}}</td>
+    <td>{{order.user}}</td>
+    <td>{{order.timeOfOrdering | date: "yy.mm.dd hh:mm" }}</td>
+    <td>{{order.completionTime | date: "yy.mm.dd hh:mm" }}</td>
+    <td>{{order.price}}</td>
+    <td>{{order.status}}</td>
+    <td><a routerLink="./{{order.id}}">details</a></td>
+  </tr>
+</table>

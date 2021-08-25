@@ -40,7 +40,8 @@ export class AccountEditComponent implements OnInit {
         user => {
           this.user = user
           localStorage.setItem('user', JSON.stringify(user))
-          this.router.navigate(['user', 'account'])
+          this.router.navigateByUrl(this.router.url.slice(0, -5))
+          // this.router.navigate(['user', 'account'])
         },
         _ => {
           this.message = 'Edition failed'
