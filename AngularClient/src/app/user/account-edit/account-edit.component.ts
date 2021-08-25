@@ -35,6 +35,7 @@ export class AccountEditComponent implements OnInit {
       this.message = 'Password mismatch'
     } else {
       this.message = 'Please wait'
+      console.log(this.user)
       this.userClient.putUser(this.user).subscribe(
         user => {
           this.user = user

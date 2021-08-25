@@ -13,17 +13,17 @@ import { RegisterComponent } from './auth/register/register.component';
 import { AccountComponent } from './user/account/account.component';
 import { MenuComponent } from './user/menu/menu.component';
 import { OrdersComponent } from './user/orders/orders.component';
-import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { OrderDetailComponent } from './admin/order-detail/order-detail.component';
 import { CartComponent } from './user/cart/cart.component';
-import { UsersComponent } from './users/users.component';
-import { OrdersAdminComponent } from './orders-admin/orders-admin.component';
-import { IngredientsComponent } from './ingredients/ingredients.component';
+import { UsersComponent } from './admin/users/users.component';
+import { OrdersAdminComponent } from './admin/orders-admin/orders-admin.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {BaseUrlInterceptor} from "./base-url.interceptor";
 import { AccountEditComponent } from './user/account-edit/account-edit.component';
 import { OrdersDetailComponent } from './user/orders-detail/orders-detail.component';
 import { CartOrderingComponent } from './user/cart-ordering/cart-ordering.component';
+import { OrdersUserComponent } from './admin/orders-user/orders-user.component';
 
 @NgModule({
   declarations: [
@@ -42,10 +42,10 @@ import { CartOrderingComponent } from './user/cart-ordering/cart-ordering.compon
     CartComponent,
     UsersComponent,
     OrdersAdminComponent,
-    IngredientsComponent,
     AccountEditComponent,
     OrdersDetailComponent,
-    CartOrderingComponent
+    CartOrderingComponent,
+    OrdersUserComponent
   ],
   imports: [
     HttpClientModule,

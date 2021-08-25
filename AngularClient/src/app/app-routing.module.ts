@@ -13,7 +13,7 @@ import {OrdersComponent} from "./user/orders/orders.component";
 import {AccountComponent} from "./user/account/account.component";
 import {CartComponent} from "./user/cart/cart.component";
 import {AccountEditComponent} from "./user/account-edit/account-edit.component";
-import {OrderDetailComponent} from "./order-detail/order-detail.component";
+import {OrderDetailComponent} from "./admin/order-detail/order-detail.component";
 import {OrdersDetailComponent} from "./user/orders-detail/orders-detail.component";
 import {CartOrderingComponent} from "./user/cart-ordering/cart-ordering.component";
 
@@ -30,12 +30,34 @@ const routs: Routes = [
   },
   {
     path: "admin",
-    component: AdminComponent
-    // children: [
-    //   {path: "", redirectTo: "login", pathMatch: "full"},
-    //   {path: "login", component: LoginComponent},
-    //   {path: "register", component: RegisterComponent}
-    // ]
+    component: AdminComponent,
+    children: [
+      {
+        path: "user",
+        component: UserComponent,
+        children: [
+          {path: "", redirectTo: "menu", pathMatch: "full"},
+          {path: "menu", component: MenuComponent},
+          {path: "account", component: AccountComponent},
+          {path: "cart", component: CartComponent},
+          {path: "cart/ordering", component: CartOrderingComponent},
+          {path: "orders", component: OrdersComponent},
+          {path: "account/edit", component: AccountEditComponent},
+          {path: "orders/:id", component: OrdersDetailComponent}
+        ]
+      },
+      {
+        path: "auth",
+        component: AuthComponent,
+        children: [
+          {path: "", redirectTo: "login", pathMatch: "full"},
+          {path: "login", component: LoginComponent},
+          {path: "register", component: RegisterComponent}
+        ]
+      },
+      {path: "shipper", component: ShipperComponent},
+      {path: "chef", component: ChefComponent}
+    ]
   },
   {
     path: "shipper", component: ShipperComponent

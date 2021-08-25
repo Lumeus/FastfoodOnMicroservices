@@ -24,6 +24,7 @@ export class BaseUrlInterceptor implements HttpInterceptor {
     if (request.url != "/authenticate")
       while (BaseUrlInterceptor.stop)
         noop()
+    console.log(request)
     const token = localStorage.getItem('token')
     let newReq
     if(token === null){
@@ -34,6 +35,7 @@ export class BaseUrlInterceptor implements HttpInterceptor {
         headers: new HttpHeaders({"Authorization": token})
       })
     }
+    console.log(newReq)
     return next.handle(newReq).pipe(tap(
       event => {},
       err => {
@@ -46,7 +48,7 @@ export class BaseUrlInterceptor implements HttpInterceptor {
           })
           retry(1)
         } else {
-          console.log(err.toString())
+          console.log(err)
         }
       }
     ));

@@ -25,7 +25,7 @@ export class UserClientService {
   }
 
   public putUser(user: User): Observable<any>{
-    return this.http.put("user/edit", user)
+    return this.http.put("/user/edit", user)
   }
 
   public getUser(id: number): Observable<any>{
