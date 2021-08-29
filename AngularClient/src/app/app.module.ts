@@ -17,15 +17,16 @@ import { OrderDetailComponent } from './admin/order-detail/order-detail.componen
 import { CartComponent } from './user/cart/cart.component';
 import { UsersComponent } from './admin/users/users.component';
 import { OrdersAdminComponent } from './admin/orders-admin/orders-admin.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
-import {BaseUrlInterceptor} from "./base-url.interceptor";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
+import { BaseUrlInterceptor } from "./base-url.interceptor";
 import { AccountEditComponent } from './user/account-edit/account-edit.component';
 import { OrdersDetailComponent } from './user/orders-detail/orders-detail.component';
 import { CartOrderingComponent } from './user/cart-ordering/cart-ordering.component';
 import { OrdersUserComponent } from './admin/orders-user/orders-user.component';
 import { RegisterAdminComponent } from './admin/register-admin/register-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MaterialModule} from "./material/material.module";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MaterialModule,
     BrowserAnimationsModule
   ],
   providers: [

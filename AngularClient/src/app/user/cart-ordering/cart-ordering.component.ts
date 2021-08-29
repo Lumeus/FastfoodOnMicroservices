@@ -5,7 +5,7 @@ import {User} from "../../model/user";
 import {OrderDTO} from "../../model/order-dto";
 import {DatePipe} from "@angular/common";
 import {UserClientService} from "../../service/user-client.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-cart-ordering',
@@ -33,7 +33,8 @@ export class CartOrderingComponent implements OnInit {
 
   constructor(
     private userClient: UserClientService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.order.dishes = <Dish[]>JSON.parse(<string>localStorage.getItem('cart'))
     this.order.dishes.forEach(dish => {
@@ -51,7 +52,7 @@ export class CartOrderingComponent implements OnInit {
     this.order.order.timeOfOrdering.setTime(Date.now())
     this.order.order.completionTime.setTime(Date.parse(this.completionTime))
     this.userClient.postOrder(this.order).subscribe(order => {
-      this.router.navigate(["user", "orders", order.order.id])
+      this.router.navigate([this.route.pathFromRoot[1].snapshot.url[0].path, "orders", order.order.id])
     })
   }
 

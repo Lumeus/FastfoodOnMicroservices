@@ -1,6 +1,59 @@
-<p>chef works!</p>
-<input id="time" [(ngModel)]="time" type="number">
+<div>
+  <button mat-raised-button color="primary" (click)="time = 1800000; getOrders()">30 min</button>
+  <button mat-raised-button color="primary" (click)="time = 3600000; getOrders()">1 hour</button>
+  <button mat-raised-button color="primary" (click)="time = 7200000; getOrders()">2 hour</button>
+</div>
 
+<table mat-table [dataSource]="orders" class="mat-elevation-z8">
+  <ng-container matColumnDef="order">
+    <th mat-header-cell *matHeaderCellDef> Order </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-list>
+        <mat-list-item>
+          <h3>time of ordering: </h3><p>{{element.order.timeOfOrdering | date: 'yy.mm.dd hh:mm'}}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3>completion time: </h3><p>{{element.order.completionTime | date: 'yy.mm.dd hh:mm'}}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3>price: </h3><p>{{element.order.price}}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <h3>status: </h3><p>{{element.order.status}}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [ngSwitch]="element.order.status">
+          <ng-template ngSwitchCase="ПРИНЯТО">
+            <button mat-raised-button color="primary" (click)="setStatus(element.order.id, 'ГОТОВИТСЯ')">ГОТОВИТСЯ</button>
+          </ng-template>
+          <ng-template ngSwitchCase="ГОТОВИТСЯ">
+            <button mat-raised-button color="accent" (click)="setStatus(element.order.id, 'ГОТОВО')">ГОТОВО</button>
+          </ng-template>
+          <ng-template ngSwitchCase="ГОТОВО">
+            <button mat-raised-button color="warn" (click)="setStatus(element.order.id, 'ВЫДАНО')">ВЫДАНО</button>
+          </ng-template>
+        </mat-list-item>
+      </mat-list>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="dishes">
+    <th mat-header-cell *matHeaderCellDef> Dishes </th>
+    <td mat-cell *matCellDef="let element">
+      <table mat-table [dataSource]="element.dishes">
+        <ng-container matColumnDef="dish">
+          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+        <tr mat-row *matRowDef="let row; columns: ['dish'];"></tr>
+      </table>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['order', 'dishes']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['order', 'dishes'];"></tr>
+</table>
+<!--
 <table>
   <tr *ngFor="let order of orders; let i = index">
     <td>
@@ -31,3 +84,4 @@
     </td>
   </tr>
 </table>
+-->

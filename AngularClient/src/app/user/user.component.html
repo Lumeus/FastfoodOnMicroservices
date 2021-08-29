@@ -1,8 +1,9 @@
-<p>user works!</p>
-<nav>
-  <a routerLink="./menu">menu</a>
-  <a routerLink="./account">account</a>
-  <a routerLink="./orders">orders</a>
-  <a routerLink="./cart">cart</a>
-</nav>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <a mat-button routerLink="./menu">menu</a>
+  <a mat-button routerLink="./account">account</a>
+  <a mat-button routerLink="./orders">orders</a>
+  <a mat-button routerLink="./cart">cart</a>
+</mat-toolbar>
+<div class="div">
+  <router-outlet></router-outlet>
+</div>

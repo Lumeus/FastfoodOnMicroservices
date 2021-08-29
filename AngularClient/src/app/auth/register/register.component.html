@@ -1,6 +1,16 @@
-<p>register works!</p>
-<input id="login" [(ngModel)]="user.username" placeholder="login">
-<input id="password" [(ngModel)]="user.password" placeholder="password" type="password">
-<input id="passwordCheck" [(ngModel)]="passwordCheck" placeholder="password" type="password">
-{{message}}
-<button (click)="register()">REGISTER</button>
+<form>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>username</mat-label>
+    <input matInput id="login" [(ngModel)]="user.username" placeholder="login" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>password</mat-label>
+    <input matInput id="password" [(ngModel)]="user.password" placeholder="password" type="password" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>repeat password</mat-label>
+    <input matInput id="passwordCheck" [(ngModel)]="passwordCheck" placeholder="password" type="password" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <p class="full-width">{{message}}</p>
+  <button mat-raised-button color="primary" class="full-width" (click)="register()">REGISTER</button>
+</form>

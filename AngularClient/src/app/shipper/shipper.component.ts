@@ -45,8 +45,8 @@ export class ShipperComponent implements OnInit {
     //   ingredient.amount = this.addiction[index]
     // })
     this.shipperClient.putIngredients(
-      this.ingredients.map((ingredient, index) => {
-        let amount = this.addiction[index]
+      this.ingredients.map(ingredient => {
+        let amount = this.addiction[ingredient.id]
         let ingr: Ingredient = new class implements Ingredient {
           id: number = ingredient.id
           name: string = ingredient.name

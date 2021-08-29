@@ -1,0 +1,18 @@
+
+.mat-table {
+  width: 67%;
+  margin: 16px auto auto;
+}
+
+.mat-cell {
+  width: 17%;
+}
+
+.mat-column-addiction {
+  width: 40%;
+}
+
+button {
+  width: 67%;
+  margin: 16px 16.5% 16.5%
+}

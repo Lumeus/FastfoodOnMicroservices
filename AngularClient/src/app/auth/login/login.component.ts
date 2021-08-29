@@ -12,8 +12,6 @@ export class LoginComponent implements OnInit {
 
   public username: string = ''
   public password: string = ''
-  show: boolean = false
-  info: User | null = null
 
   constructor(
     private authClient: AuthClientService,
@@ -30,7 +28,6 @@ export class LoginComponent implements OnInit {
       response.user.password = this.password
       localStorage.setItem('token', 'Bearer ' + response.token)
       localStorage.setItem('user', JSON.stringify(response.user))
-      this.info = JSON.parse(<string>localStorage.getItem('user'))
       this.router.navigate([JSON.parse(<string>localStorage.getItem('user')).role.toLowerCase()])
     })
   }

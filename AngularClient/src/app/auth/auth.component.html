@@ -1,6 +1,7 @@
-<p>auth works!</p>
-<nav>
-  <a routerLink="./login">login</a>
-  <a routerLink="./register">register</a>
-</nav>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <a mat-button routerLink="./login">login</a>
+  <a mat-button routerLink="./register">register</a>
+</mat-toolbar>
+<div class="div">
+  <router-outlet></router-outlet>
+</div>

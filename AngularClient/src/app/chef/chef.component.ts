@@ -32,7 +32,7 @@ export class ChefComponent implements OnInit, OnDestroy {
   }
 
   setStatus(id: number, status: string): void{
-    this.chefClient.putOrderStatus(id, status).subscribe()
+    this.chefClient.putOrderStatus(id, status).subscribe(_ => this.getOrders())
   }
 
   getOrders() {
