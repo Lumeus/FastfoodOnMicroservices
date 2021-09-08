@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
       name: dishDTO.name,
       cost: dishDTO.cost,
       info: dishDTO.info,
-      dishID: dishDTO.id
+      dishId: dishDTO.id
     }
     let cart = localStorage.getItem('cart')
     if (cart === null){

@@ -7,6 +7,12 @@ form {
   justify-content: center;
 }
 
+p {
+  height: 30px;
+  text-align: center;
+  color: red;
+}
+
 .full-width {
   width: 100%;
 }

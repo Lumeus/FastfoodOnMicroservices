@@ -6,11 +6,11 @@
   </ng-container>
   <ng-container matColumnDef="timeOfOrdering">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Time of ordering </th>
-    <td mat-cell *matCellDef="let element"> {{element.timeOfOrdering | date: "yy.mm.dd hh:mm"}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.timeOfOrdering | date: "yy.MM.dd HH:mm"}} </td>
   </ng-container>
   <ng-container matColumnDef="completionTime">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Completion time </th>
-    <td mat-cell *matCellDef="let element"> {{element.completionTime | date: "yy.mm.dd hh:mm"}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.completionTime | date: "yy.MM.dd HH:mm"}} </td>
   </ng-container>
   <ng-container matColumnDef="price">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>

@@ -75,10 +75,13 @@ public class StorageService {
         }));
 //      Проверка на корректность внесенных изменений (хватает ли ингредиентов на данный заказ)
         if (ingredients.stream()
-                .map(e -> e.getAmount() < 0)
-                .findAny()
-                .isPresent()
-        ){//Если заказ невозможен, возвращается false, говорящее об этом, а изменения не сораняются
+                .anyMatch(e -> e.getAmount() < 0)
+        ){//Если заказ невозможен, возвращается false, говорящее об этом, а изменения откатываютя
+            contents.forEach(e -> ingredients.forEach(o -> {
+                if (o.getId() == e.getIngredient()) {
+                    o.setAmount(o.getAmount() + e.getAmount());
+                }
+            }));
             return false;
         }
         else {//Если заказ возможен, возвращается true, говорящее об этом, а изменения сораняются (затем заказ выполняется)

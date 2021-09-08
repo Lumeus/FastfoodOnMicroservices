@@ -31,7 +31,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "new", method = RequestMethod.POST)
-    public OrderDTO addOrder(@RequestBody OrderDTO order){
+    public ResponseEntity<OrderDTO> addOrder(@RequestBody OrderDTO order){
         return orderService.addOrder(order);
     }
 

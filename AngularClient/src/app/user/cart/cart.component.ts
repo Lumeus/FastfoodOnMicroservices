@@ -22,6 +22,7 @@ export class CartComponent implements OnInit {
   deleteFromCart(index: number): void{
     this.cart.splice(index, 1)
     localStorage.setItem('cart', JSON.stringify(this.cart))
+    this.cart = JSON.parse(<string>localStorage.getItem('cart'))//bag fix
   }
 
   ordering(): void{

@@ -7,6 +7,7 @@ import com.repositories.OrderRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -43,16 +44,16 @@ public class OrderService {
 
     public List<Dish> getDishes(long id){return dishRepository.findAllByOrder(id);}
 
-    public OrderDTO addOrder(OrderDTO orderDTO){
+    public ResponseEntity<OrderDTO> addOrder(OrderDTO orderDTO){
 //        RestTemplate restTemplate = new RestTemplate();
         Order order = orderDTO.getOrder();
         List<Dish> dishes = orderDTO.getDishes();
-        if (
+        if (// обращение на склад
                 storageClient.takeDishes(dishes.stream()
                         .map(Dish::getDishId)
                         .collect(Collectors.toList())
                 )
-        ){// обращение на склад
+        ){
             order.setId(orderRepository.getNextID());
             final long[] dishCount = {dishRepository.getNextID()};
             dishes.forEach(dish -> {
@@ -62,9 +63,9 @@ public class OrderService {
             order.setStatus("ПРИНЯТО");
             orderDTO.setOrder(orderRepository.save(order));
             orderDTO.setDishes(dishRepository.saveAll(dishes));
-            return orderDTO;
+            return ResponseEntity.ok(orderDTO);
         }
-        return null;
+        return ResponseEntity.badRequest().build();
     }
 
     public void setStatus(long id, String status){

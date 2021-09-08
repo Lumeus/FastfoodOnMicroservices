@@ -26,8 +26,10 @@ export class LoginComponent implements OnInit {
     this.authClient.login(this.username, this.password).subscribe(response => {
       console.log(response)
       response.user.password = this.password
+      let user = JSON.stringify(response.user)
+      if (localStorage.getItem('user') != user) localStorage.clear()
       localStorage.setItem('token', 'Bearer ' + response.token)
-      localStorage.setItem('user', JSON.stringify(response.user))
+      localStorage.setItem('user', user)
       this.router.navigate([JSON.parse(<string>localStorage.getItem('user')).role.toLowerCase()])
     })
   }

@@ -25,11 +25,11 @@ export class CartOrderingComponent implements OnInit {
     dishes: []
   }
 
-  now: boolean = true
-
   minTime: string = ''
 
   completionTime: string = ''
+
+  message: string = ''
 
   constructor(
     private userClient: UserClientService,
@@ -51,9 +51,16 @@ export class CartOrderingComponent implements OnInit {
   ordering(): void {
     this.order.order.timeOfOrdering.setTime(Date.now())
     this.order.order.completionTime.setTime(Date.parse(this.completionTime))
-    this.userClient.postOrder(this.order).subscribe(order => {
-      this.router.navigate([this.route.pathFromRoot[1].snapshot.url[0].path, "orders", order.order.id])
-    })
+    this.userClient.postOrder(this.order).subscribe(
+      order => {
+        localStorage.removeItem('cart')
+        this.router.navigate([this.route.pathFromRoot[1].snapshot.url[0].path, "orders", order.order.id])
+      },
+      error => {
+        console.log(error)
+        this.message = 'some problem with ordering, try to delete some dishes from your cart'
+      }
+    )
   }
 
 }
