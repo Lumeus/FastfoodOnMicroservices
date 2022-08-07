@@ -1,0 +1,26 @@
+<table mat-table [dataSource]="users" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> UserName </th>
+    <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+  </ng-container>
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['id', 'username', 'role']"></tr>
+  <tr routerLink="./{{row.id}}" mat-row *matRowDef="let row; columns: ['id', 'username', 'role'];"></tr>
+</table>
+<!--
+<table>
+  <tr *ngFor="let user of users.sort(userSort)">
+    <td>{{user.id}}</td>
+    <td>{{user.username}}</td>
+    <td>{{user.role}}</td>
+    <td><a routerLink="./{{user.id}}">orders</a></td>
+  </tr>
+</table>
+-->

@@ -1,0 +1,47 @@
+<table mat-table [dataSource]="ingredients" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="measure">
+    <th mat-header-cell *matHeaderCellDef> Measure </th>
+    <td mat-cell *matCellDef="let element"> {{element.measure}} </td>
+  </ng-container>
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef> Amount </th>
+    <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+  </ng-container>
+  <ng-container matColumnDef="addiction">
+    <th mat-header-cell *matHeaderCellDef> Addiction </th>
+    <td mat-cell *matCellDef="let element">
+      <form>
+        <mat-form-field>
+          <input matInput type="number" [(ngModel)]="addiction[element.id]" [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+      </form>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['id', 'name', 'measure', 'amount', 'addiction']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['id', 'name', 'measure', 'amount', 'addiction'];"></tr>
+</table>
+<!--
+<table>
+  <tr *ngFor="let ingredient of ingredients; let i = index">
+    <td>{{ingredient.id}}</td>
+    <td>{{ingredient.name}}</td>
+    <td>{{ingredient.measure}}</td>
+    <td>{{ingredient.amount}}</td>
+    <td><input type="number" [(ngModel)]="addiction[i]"></td>
+  </tr>
+  <tr *ngFor="let ingredient of new">
+    <td><input [(ngModel)]="ingredient.name"></td>
+    <td><input [(ngModel)]="ingredient.measure"></td>
+    <td><input type="number" [(ngModel)]="ingredient.amount"></td>
+  </tr>
+</table>
+-->
+<button mat-raised-button color="primary" (click)="putIngredients()">SEND</button>

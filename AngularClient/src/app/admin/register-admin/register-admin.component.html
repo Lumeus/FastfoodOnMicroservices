@@ -1,0 +1,25 @@
+<form>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>username</mat-label>
+    <input matInput id="login" [(ngModel)]="user.username" placeholder="login" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>password</mat-label>
+    <input matInput id="password" [(ngModel)]="user.password" placeholder="password" type="password" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>repeat password</mat-label>
+    <input matInput id="passwordCheck" [(ngModel)]="passwordCheck" placeholder="password" type="password" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>role</mat-label>
+    <mat-select id="role" [(ngModel)]="user.role"  [ngModelOptions]="{standalone: true}">
+      <mat-option value="USER">USER</mat-option>
+      <mat-option value="CHEF">CHEF</mat-option>
+      <mat-option value="SHIPPER">SHIPPER</mat-option>
+      <mat-option value="ADMIN">ADMIN</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p class="full-width">{{message}}</p>
+  <button mat-raised-button color="primary" class="full-width" (click)="register()">REGISTER</button>
+</form>

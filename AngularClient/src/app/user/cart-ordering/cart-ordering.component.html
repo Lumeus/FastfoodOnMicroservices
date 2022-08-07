@@ -1,0 +1,16 @@
+<form>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>completion time</mat-label>
+    <input matInput id="time"
+           type="datetime-local"
+           [min]="minTime"
+           [(ngModel)]="completionTime"
+           [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+  <button mat-raised-button color="primary" class="full-width" (click)="ordering()">CONFIRM</button>
+  <p class="full-width">{{message}}</p>
+</form>
+<!--<input id="time" type="datetime-local"-->
+<!--       [min]="minTime"-->
+<!--       [(ngModel)]="completionTime"-->
+<!--&gt;-->
